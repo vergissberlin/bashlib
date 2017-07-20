@@ -38,7 +38,6 @@ sleep 1
 cp 'file1' 'file2' > /dev/null 2>&1
 spinner_stop $?
 
-
 # test success
 spinner_start 'Sleeping for 70 seconds ...'
 sleep 70

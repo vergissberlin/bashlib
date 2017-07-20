@@ -38,8 +38,8 @@ function teardown {
 function test_information() {
 
     messageInfo "Test information"
-		# fileInfo ${FILE_OLD} == "- rw - r-- r-- 1 andrelademann staff 0 B 12 Jan 2000./ tests / fixtures / file - old.txt"
 
+		# fileInfo ${FILE_OLD} == "- rw - r-- r-- 1 andrelademann staff 0 B 12 Jan 2000./ tests / fixtures / file - old.txt"
 }
 
 
@@ -50,21 +50,20 @@ function test_content() {
 
     messageInfo "Test file content of fixtures"
 
-
-    # familyMapper
     testStringExistsInFile \
-        "./tests/results/file-new.txt" \
+        "./tests/fixtures/file-new.txt" \
         "new"
 
-    # UTF 8
-		testFileUTF8 "./tests/results/file-new.txt"
-		testFileUTF8 "./tests/results/file-old.txt"
+    testStringExistsInFile \
+        "./tests/fixtures/file-old.txt" \
+        "old"
+
 }
 
 # Test runner
 setup
 
-test_information
+# test_information
 test_content
 
 
