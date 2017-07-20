@@ -1,0 +1,104 @@
+#!/usr/bin/env bash
+
+####################################################################################
+# Bashlib     : 0.0.1
+# Copyright		: 2017, MIT
+# Author			: André Lademann <vergissberlin@googlemail.com>
+# Repository	: https://github.com/vergissberlin/bashlight
+####################################################################################
+# @example
+#   1. source this script in your's
+#   2. start the spinner:
+#       spinner_start [display-message-here]
+#   3. run your command
+#   4. stop the spinner:
+#       spinner_stop [your command's exit status]
+#
+# Also see: test.sh
+function _spinner() {
+
+    # $1 start/stop
+    #
+    # on start: $2 display message
+    # on stop : $2 process exit status
+    #           $3 spinner function pid (supplied from spinner_stop)
+    local on_success=" ok "
+    local on_fail="erro"
+    local white="\033[0;37m"
+    local green="\033[01;32m"
+    local red="\033[01;31m"
+    local nc="\033[0m"
+
+    case $1 in
+        start)
+            # Calculate the column where spinner and status msg will be displayed
+
+            # Start spinner
+            i=1
+            sp='\|/-'
+            delay=${SPINNER_DELAY:-0.25}
+            counter=0
+            timer=0
+
+            # Display message and position the cursor in $column column
+            while :
+            do
+                # Display seconds or minutes it takes
+                if [[ ${SPINNER_TIMER} ]]; then
+                    counter=$(echo "(${counter} + ${delay})" | bc)
+                    timer=$(echo $counter/1 | bc)
+                    if [[ "${timer}" -lt 60 ]]; then
+                        timer="${timer} sec"
+                    else
+                        timer="$(echo ${timer} / 60 | bc) min "
+                    fi
+                    echo -en "\r[  ${sp:i++%${#sp}:1} ]\t${timer}\t${2}"
+                else
+                    echo -en "\r[  ${sp:i++%${#sp}:1} ]\t${2}"
+                fi
+                sleep ${delay}
+            done
+
+            ;;
+        stop)
+            if [[ -z ${3} ]]; then
+                echo -en "[${red}${on_fail}${nc}]\t\tSpinner is not running."
+                exit 1
+            fi
+
+            kill $3 > /dev/null 2>&1
+
+            # Inform the user upon success or failure
+            echo -en "\r["
+            if [[ $2 -eq 0 ]]; then
+                echo -en "${green}${on_success}${nc}"
+            else
+                echo -en "${red}${on_fail}${nc}"
+            fi
+            echo -e "]"
+
+            if [[ $2 -gt 0 ]]; then
+                exit $2
+            fi
+
+            ;;
+        *)
+            echo -en "[${red}${on_fail}${nc}]\t\tInvalid argument, try {start/stop}"
+            exit 1
+            ;;
+    esac
+}
+
+function spinner_start {
+    # $1 : msg to display
+    _spinner "start" "${1}" &
+    # set global spinner pid
+    _sp_pid=$!
+    disown
+}
+
+function spinner_stop {
+    # $1 : command exit status
+    _spinner "stop" $1 $_sp_pid
+    unset _sp_pid
+}
