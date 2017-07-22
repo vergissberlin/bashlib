@@ -14,5 +14,5 @@
 #
 # return string
 function fileInfo() {
-    ls -lh $1 | indent
+    ls -lh $1
 }

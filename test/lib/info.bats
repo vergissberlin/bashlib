@@ -19,10 +19,10 @@ setup() {
 
 @test "File - Old file info output" {
   run fileInfo $FILE_OLD
-  assert_output --regexp "file - old.txt"
+  assert_output --partial "file-old.txt"
 }
 
 @test "File - New file info output" {
   run fileInfo $FILE_NEW
-  assert_output --regexp "file - new.txt"
+  assert_output --partial "file-new.txt"
 }

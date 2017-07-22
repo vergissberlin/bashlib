@@ -31,4 +31,4 @@ fi
 	git clone --depth 1 https://github.com/ztombol/bats-file ./test/test_helper/bats-file
 
 # Run all tests with bats
-exec ${BATS_EXECUTEABLE} ${CI:+--tap} ${DIRECTORY_TEST}/{lib,scripts}
+exec ${BATS_EXECUTEABLE} ${CI:+--tap} ${DIRECTORY_TEST}/lib
