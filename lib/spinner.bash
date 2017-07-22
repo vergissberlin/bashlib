@@ -4,7 +4,7 @@
 # Bashlib     : 0.0.1
 # Copyright		: 2017, MIT
 # Author			: André Lademann <vergissberlin@googlemail.com>
-# Repository	: https://github.com/vergissberlin/bashlight
+# Repository	: https://github.com/vergissberlin/bashlib
 ####################################################################################
 # @example
 #   1. source this script in your's

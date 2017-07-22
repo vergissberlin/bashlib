@@ -31,5 +31,5 @@ That library is made for you! It helps to improve bash your bash scripts.
 ### Tests
 
 ````
-bash tests/suite.sh
+bash test/suite.sh
 ````

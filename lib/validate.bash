@@ -4,12 +4,13 @@
 # Bashlib     : 0.0.1
 # Copyright		: 2017, MIT
 # Author			: André Lademann <vergissberlin@googlemail.com>
-# Repository	: https://github.com/vergissberlin/bashlight
+# Repository	: https://github.com/vergissberlin/bashlib
 ####################################################################################
 
 
 # Check count of arguments
 #
+# @example validateArguments "24" "42" "12"
 # @return void
 function validateArguments {
 	if [ $1 -ne $2 ]
@@ -20,17 +21,15 @@ function validateArguments {
 
 # Check count of arguments
 #
+# @example validateEnvironment ENV_VAR_NAME
+# $1 Environment variable name
 # @return void
 function validateEnvironment {
-    if [ $2 ]; then
-      VALUE=$2
-    else
-      VALUE="VALUE"
-    fi
-	if printenv $1 >/dev/null; then
+	if printenv $1 >/dev/null
+	then
         messageOk "Variable ${blue}${1}${norm} is set."
 	else
-        messageError 65 "Variable ${blue}${1}${norm} is not set. Please run: ${code}make [TARGET] ${1}=[$VALUE]${norm}."
+        messageError 65 "Variable ${blue}${1}${norm} is not set."
 	fi
 }
 

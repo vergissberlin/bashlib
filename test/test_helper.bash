@@ -1,18 +1,13 @@
-#!/usr/bin/env bash
+#!/usr/bin/env bats
 
 ####################################################################################
 # Bashlib     : 0.0.1
 # Copyright		: 2017, MIT
 # Author			: André Lademann <vergissberlin@googlemail.com>
-# Repository	: https://github.com/vergissberlin/bashlight
+# Repository	: https://github.com/vergissberlin/bashlib
 ####################################################################################
 
-
-# Get file information
-#
-# @example infoFile "path/to/file.xx"
-#
-# return string
-function fileInfo() {
-    ls -lh $1 | indent
-}
+load "../test_helper/batslib"
+load "../test_helper/output"
+load "../test_helper/bats-assert/load"
+load "../test_helper/bats-file/load"

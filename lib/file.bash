@@ -4,16 +4,15 @@
 # Bashlib     : 0.0.1
 # Copyright		: 2017, MIT
 # Author			: André Lademann <vergissberlin@googlemail.com>
-# Repository	: https://github.com/vergissberlin/bashlight
+# Repository	: https://github.com/vergissberlin/bashlib
 ####################################################################################
 
 
-
-# Setup
-. ./tests/test_start.sh
-
-# Include test cases
-. ./tests/lib/*_test.sh
-
-# Tear down
-. ./tests/test_stop.sh
+# Get file information
+#
+# @example infoFile "path/to/file.xx"
+#
+# return string
+function fileInfo() {
+    ls -lh $1 | indent
+}

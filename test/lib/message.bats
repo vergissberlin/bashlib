@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env bats
 
 ####################################################################################
 # Bashlib     : 0.0.1
@@ -7,14 +7,15 @@
 # Repository	: https://github.com/vergissberlin/bashlib
 ####################################################################################
 
+load "../test_helper"
+load "../../lib/message"
 
-# trap ctrl-c and call ctrl_c()
-trap ctrl_c INT
-function ctrl_c() {
-    spinner_stop $?
-    messageWarn "${bold_begin}${blink_begin}You have interrupt the process!${blink_end}${bold_end}\n        This could causes invalid data.\n"
-    exit 1;
+@test "Message - Simple message" {
+  run message "Hello world"
+  assert_success
 }
 
-# Configuration
-SPINNER_TIMER=true
+@test "Message - Error message with exit code" {
+  run messageError 100 "Hello world"
+  assert_failure
+}
