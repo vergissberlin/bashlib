@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-
-apt install git -y
-sh test/suite.sh
+apt-get update
+apt-get install git-core -y
+sh ./test/suite.sh
