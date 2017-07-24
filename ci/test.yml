@@ -7,4 +7,4 @@ image_resource:
 
 run:
   path: sh
-  args: [test/suite.sh]
+  args: [resource-bashlib/test/suite.sh]
