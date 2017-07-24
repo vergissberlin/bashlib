@@ -1,0 +1,22 @@
+---
+jobs:
+- name: deploy-bashlib
+  public: true
+  serial: true
+  plan:
+  - get: resource-bashlib
+  - get: deploy-timer
+    trigger: true
+  - task: run-test
+    file: resource-bashlib/ci/test.yml
+
+resources:
+- name: resource-bashlib
+  type: git
+  source:
+    uri: https://github.com/vergissberlin/bashlib.git
+
+- name: deploy-timer
+  type: time
+  source:
+    interval: 2m
