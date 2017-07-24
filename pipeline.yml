@@ -17,9 +17,7 @@ jobs:
       - name: resource-bashlib
       run:
         path: sh
-        args: ['install.sh']
-
-
+        args: ['./resource-bashlib/ci.sh']
 
 resources:
 - name: resource-bashlib

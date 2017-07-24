@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
 apt update
-apt install git-core -y
+apt install git -y
 sh test/suite.sh
