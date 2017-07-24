@@ -8,7 +8,18 @@ jobs:
   - get: deploy-timer
     trigger: true
   - task: run-test
-    file: resource-bashlib/ci/test.yml
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source: {repository: ubuntu}
+      inputs:
+      - name: resource-bashlib
+      run:
+        path: sh
+        args: ['install.sh']
+
+
 
 resources:
 - name: resource-bashlib
