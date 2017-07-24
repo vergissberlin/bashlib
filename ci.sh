@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 apt-get update
 apt-get install git-core bats -y
-ls -lisah
+
+echo
 cat ./resource-bashlib/logo.txt
-sh ./resource-bashlib/test/suite.sh
+echo
+cd ./resource-bashlib/
+sh ./test/suite.sh
