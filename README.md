@@ -33,10 +33,30 @@ That library is made for you! It helps to improve bash your bash scripts.
 - CentOS
 - Fedora (In addition to plain installation the package _findutils_ is required)
 
-## Development
+
+## Contributing
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
 
 ### Testing
 
 ````
 bash test/suite.sh
 ````
+
+### Support or Contact
+You can contact me (@vergissberlin) on GitHub. Use the issue tracker to report bugs.
+
+
+## Thank you
+- .. tbs
+
+---
+
+*Made with love and*
+
+[![Atom.IO](http://github-atom-io-herokuapp-com.global.ssl.fastly.net/assets/logo-4e073dbd4c0ce67ece1b30a6b31253b9.png)](https://atom.io/)
