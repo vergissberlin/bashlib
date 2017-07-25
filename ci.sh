@@ -3,9 +3,9 @@
 export CI=true
 export TERM=xterm
 
+figlet "bashlib"
 echo
-cat ./resource-bashlib/logo.txt
-echo
-figlet "Testing"
+figlet -f digital "Run tests"
+
 cd ./resource-bashlib/
 sh ./test/suite.sh
