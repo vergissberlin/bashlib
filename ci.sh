@@ -7,7 +7,7 @@ figlet "bashlib"
 echo
 figlet -f digital "Run tests"
 echo
-echo $(uname)
+echo $(uname -a)
 echo
 
 cd ./resource-bashlib/
