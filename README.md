@@ -19,16 +19,15 @@ That library is made for you! It helps to improve bash your bash scripts.
 
 1. UI components
   - Colored messages ``[ OK ]``
-	- Progress annimation ``[ / ]``
-2. Testing components
-3. Validation helper
+  - Progress annimation ``[ / ]``
+2. Validation helper
 4. Math helper
 5. Remote ssh command execution
 
 
 ## Development
 
-### Tests
+### Testing
 
 ````
 bash test/suite.sh
