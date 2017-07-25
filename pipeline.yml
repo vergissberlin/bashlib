@@ -1,6 +1,6 @@
 ---
 jobs:
-- name: test-ubunutu
+- name: test-ubuntu
   public: true
   serial: true
   plan:
