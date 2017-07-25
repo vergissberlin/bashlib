@@ -12,7 +12,7 @@ jobs:
       platform: linux
       image_resource:
         type: docker-image
-        source: {repository: ceregousa/ubuntu-git}
+        source: {repository: vergissberlin/ubuntu-development}
       inputs:
       - name: resource-bashlib
       run:
