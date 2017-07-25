@@ -31,7 +31,7 @@ That library is made for you! It helps to improve bash your bash scripts.
 - Ubuntu
 - OpenSuse
 - CentOS
-- Fedora (In addition to plain installation the package _findutils_ is required)
+- Fedora (In addition to plain installation the package ``findutils`` is required)
 
 
 ## Contributing
