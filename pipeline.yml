@@ -1,11 +1,29 @@
 ---
+resources:
+- name: resource-bashlib
+  type: git
+  source:
+    uri: https://github.com/vergissberlin/bashlib.git
+    branch: master
+    disable_ci_skip: true
+- name: slack-alert
+  type: slack-notification
+  source:
+    url: https://hooks.slack.com/services/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
+resource_types:
+- name: slack-notification
+  type: docker-image
+  source:
+    repository: cfcommunity/slack-notification-resource
+    tag: latest
+
 jobs:
 - name: test-ubuntu
   public: true
   serial: true
   plan:
   - get: resource-bashlib
-    trigger:    true
+    trigger: true
   - task: run-test
     config:
       platform: linux
@@ -17,6 +35,7 @@ jobs:
       run:
         path: sh
         args: ['./resource-bashlib/ci.sh']
+
 - name: test-debian
   public: true
   serial: true
@@ -68,6 +87,7 @@ jobs:
       run:
         path: sh
         args: ['./resource-bashlib/ci.sh']
+
 - name: test-centos
   public: true
   serial: true
@@ -85,11 +105,11 @@ jobs:
       run:
         path: sh
         args: ['./resource-bashlib/ci.sh']
-
-resources:
-- name: resource-bashlib
-  type: git
-  source:
-    uri: https://github.com/vergissberlin/bashlib.git
-    branch: master
-    disable_ci_skip: true
+  on_success:
+    put: slack-alert
+    params:
+      text: "bashlib: Test successfully"
+  on_failure:
+    put: slack-alert
+    params:
+      text: "bashlib: Test failed"
