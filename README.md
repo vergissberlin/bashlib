@@ -24,6 +24,14 @@ That library is made for you! It helps to improve bash your bash scripts.
 4. Math helper
 5. Remote ssh command execution
 
+## Supported operating systems
+
+- MacOS
+- Debian
+- Ubuntu
+- OpenSuse
+- CentOS
+- Fedora (In addition to plain installation the package _findutils_ is required)
 
 ## Development
 
