@@ -72,6 +72,24 @@ jobs:
       run:
         path: sh
         args: ['./resource-bashlib/ci.sh']
+- name: test-centos
+  public: true
+  serial: true
+  plan:
+  - get: resource-bashlib
+  - get: deploy-timer
+    trigger: true
+  - task: run-test
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source: {repository: vergissberlin/centos-development}
+      inputs:
+      - name: resource-bashlib
+      run:
+        path: sh
+        args: ['./resource-bashlib/ci.sh']
 
 resources:
 - name: resource-bashlib
