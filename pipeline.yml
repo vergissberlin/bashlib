@@ -5,8 +5,7 @@ jobs:
   serial: true
   plan:
   - get: resource-bashlib
-  - get: deploy-timer
-    trigger: true
+    trigger:    true
   - task: run-test
     config:
       platform: linux
@@ -23,7 +22,6 @@ jobs:
   serial: true
   plan:
   - get: resource-bashlib
-  - get: deploy-timer
     trigger: true
   - task: run-test
     config:
@@ -41,7 +39,6 @@ jobs:
   serial: true
   plan:
   - get: resource-bashlib
-  - get: deploy-timer
     trigger: true
   - task: run-test
     config:
@@ -59,7 +56,6 @@ jobs:
   serial: true
   plan:
   - get: resource-bashlib
-  - get: deploy-timer
     trigger: true
   - task: run-test
     config:
@@ -77,7 +73,6 @@ jobs:
   serial: true
   plan:
   - get: resource-bashlib
-  - get: deploy-timer
     trigger: true
   - task: run-test
     config:
@@ -96,8 +91,5 @@ resources:
   type: git
   source:
     uri: https://github.com/vergissberlin/bashlib.git
-
-- name: deploy-timer
-  type: time
-  source:
-    interval: 2m
+    branch: master
+    disable_ci_skip: true
