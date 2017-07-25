@@ -1,6 +1,6 @@
 ---
 jobs:
-- name: deploy-bashlib
+- name: test-ubunutu
   public: true
   serial: true
   plan:
@@ -13,6 +13,60 @@ jobs:
       image_resource:
         type: docker-image
         source: {repository: vergissberlin/ubuntu-development}
+      inputs:
+      - name: resource-bashlib
+      run:
+        path: sh
+        args: ['./resource-bashlib/ci.sh']
+- name: test-debian
+  public: true
+  serial: true
+  plan:
+  - get: resource-bashlib
+  - get: deploy-timer
+    trigger: true
+  - task: run-test
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source: {repository: vergissberlin/debian-development}
+      inputs:
+      - name: resource-bashlib
+      run:
+        path: sh
+        args: ['./resource-bashlib/ci.sh']
+- name: test-fedora
+  public: true
+  serial: true
+  plan:
+  - get: resource-bashlib
+  - get: deploy-timer
+    trigger: true
+  - task: run-test
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source: {repository: vergissberlin/fedora-development}
+      inputs:
+      - name: resource-bashlib
+      run:
+        path: sh
+        args: ['./resource-bashlib/ci.sh']
+- name: test-opensuse
+  public: true
+  serial: true
+  plan:
+  - get: resource-bashlib
+  - get: deploy-timer
+    trigger: true
+  - task: run-test
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source: {repository: vergissberlin/opensuse-development}
       inputs:
       - name: resource-bashlib
       run:
