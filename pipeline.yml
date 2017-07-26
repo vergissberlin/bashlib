@@ -18,7 +18,7 @@ resource_types:
     tag: latest
 
 jobs:
-- name: test-ubuntu
+- name: test-alpine
   public: true
   serial: true
   plan:
@@ -29,13 +29,37 @@ jobs:
       platform: linux
       image_resource:
         type: docker-image
-        source: {repository: vergissberlin/ubuntu-development}
+        source: {repository: vergissberlin/alpine-development}
       inputs:
       - name: resource-bashlib
       run:
         path: sh
         args: ['./resource-bashlib/ci.sh']
-
+- name: test-centos
+  public: true
+  serial: true
+  plan:
+  - get: resource-bashlib
+    trigger: true
+  - task: run-test
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source: {repository: vergissberlin/centos-development}
+      inputs:
+      - name: resource-bashlib
+      run:
+        path: sh
+        args: ['./resource-bashlib/ci.sh']
+  on_success:
+    put: slack-alert
+    params:
+      text: "bashlib: Test successfully"
+  on_failure:
+    put: slack-alert
+    params:
+      text: "bashlib: Test failed"
 - name: test-debian
   public: true
   serial: true
@@ -87,8 +111,7 @@ jobs:
       run:
         path: sh
         args: ['./resource-bashlib/ci.sh']
-
-- name: test-centos
+- name: test-ubuntu
   public: true
   serial: true
   plan:
@@ -99,17 +122,9 @@ jobs:
       platform: linux
       image_resource:
         type: docker-image
-        source: {repository: vergissberlin/centos-development}
+        source: {repository: vergissberlin/ubuntu-development}
       inputs:
       - name: resource-bashlib
       run:
         path: sh
         args: ['./resource-bashlib/ci.sh']
-  on_success:
-    put: slack-alert
-    params:
-      text: "bashlib: Test successfully"
-  on_failure:
-    put: slack-alert
-    params:
-      text: "bashlib: Test failed"
