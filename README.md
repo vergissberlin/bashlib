@@ -53,7 +53,8 @@ You can contact me (@vergissberlin) on GitHub. Use the issue tracker to report b
 
 
 ## Thank you
-- .. tbs
+- tlatsas for inspire to a bash spinner https://github.com/tlatsas/bash-spinner/blob/master/spinner.sh
+
 
 ---
 
