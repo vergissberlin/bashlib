@@ -5,6 +5,15 @@ image_resource:
   source: {repository: vergissberlin/ubuntu-development}
 inputs:
 - name: resource-bashlib
+outputs:
+- name: manifest
+
 run:
   path: sh
   args: ['./resource-bashlib/ci.sh']
+
+params:
+  deployment_name:
+  docker_image_source: embedded
+  docker_image_image: "vergissberlin/alpine-development"
+  docker_image_tag: "latest"
