@@ -2,7 +2,9 @@
 platform: linux
 image_resource:
   type: docker-image
-  source: "$DISTRIBUTION"
+  source: vergissberlin/alpine-development
+  tag: latest
+
 inputs:
 - name: resource-bashlib
 outputs:
