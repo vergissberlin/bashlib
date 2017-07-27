@@ -22,4 +22,4 @@ jobs:
         docker_image_image: "vergissberlin/alpine-development"
         docker_image_tag: "latest"
         docker_image_source: upstream
-        DISTRIBUTION: alpine
+        DISTRIBUTION: {repository: vergissberlin/ubuntu-development}

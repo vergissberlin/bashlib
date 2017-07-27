@@ -39,7 +39,9 @@ jobs:
   on_failure:
     put: slack-alert
     params:
-      text: "bashlib: Test failed"
+      username: {{message-username}}
+      icon_emoji: {{message-fail-emoji}}
+      text: {{message-fail-text}}
 - name: test-centos
   public: true
   max_in_flight: 1
@@ -61,7 +63,9 @@ jobs:
   on_failure:
     put: slack-alert
     params:
-      text: "bashlib: Test failed"
+      username: {{message-username}}
+      icon_emoji: {{message-fail-emoji}}
+      text: {{message-fail-text}}
 - name: test-debian
   public: true
   max_in_flight: 1
@@ -83,7 +87,9 @@ jobs:
   on_failure:
     put: slack-alert
     params:
-      text: "bashlib: Test failed"
+      username: {{message-username}}
+      icon_emoji: {{message-fail-emoji}}
+      text: {{message-fail-text}}
 - name: test-fedora
   public: true
   max_in_flight: 1
@@ -105,7 +111,9 @@ jobs:
   on_failure:
     put: slack-alert
     params:
-      text: "bashlib: Test failed"
+      username: {{message-username}}
+      icon_emoji: {{message-fail-emoji}}
+      text: {{message-fail-text}}
 - name: test-opensuse
   public: true
   max_in_flight: 1
@@ -127,7 +135,9 @@ jobs:
   on_failure:
     put: slack-alert
     params:
-      text: "bashlib: Test failed on fedora"
+      username: {{message-username}}
+      icon_emoji: {{message-fail-emoji}}
+      text: {{message-fail-text}}
 - name: test-ubuntu
   public: true
   max_in_flight: 1
@@ -149,17 +159,13 @@ jobs:
   on_success:
     put: slack-alert
     params:
-      channel: "#transformers"
-      username: "concourse ci"
-      icon_emoji: ":white_check_mark:"
-      text: |
-        *Success !!*
-
-        > Team:   $BUILD_TEAM_NAME
-        > Job:    $BUILD_JOB_NAME
-        > Build:  $BUILD_NAME.$BUILD_ID
+      username: {{message-username}}
+      icon_emoji: {{message-success-emoji}}
+      text: {{message-success-text}}
 
   on_failure:
     put: slack-alert
     params:
-      text: "bashlib: Test failed"
+      username: {{message-username}}
+      icon_emoji: {{message-fail-emoji}}
+      text: {{message-fail-text}}
