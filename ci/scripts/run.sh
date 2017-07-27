@@ -4,9 +4,7 @@ export CI=true
 export TERM=xterm
 
 figlet "bashlib"
-echo
-figlet -f digital $DISTRIBUTION
-echo
+echo -e "\nRun tests on ${DISTRIBUTION}\n"
 figlet -f digital "Run tests"
 echo
 echo $(uname -a)
