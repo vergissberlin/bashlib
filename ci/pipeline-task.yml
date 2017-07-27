@@ -14,15 +14,47 @@ jobs:
   - get: resource-bashlib
     trigger: true
   - aggregate:
-    - task: task-test
+    - task: task-test-alpine
       file: resource-bashlib/ci/tasks/test-alpine.yml
-    - task: task-test
+    - task: task-test-centos
       file: resource-bashlib/ci/tasks/test-centos.yml
-    - task: task-test
+    - task: task-test-debian
       file: resource-bashlib/ci/tasks/test-debian.yml
-    - task: task-test
+    - task: task-test-fedora
       file: resource-bashlib/ci/tasks/test-fedora.yml
-    - task: task-test
+    - task: task-test-opensuse
       file: resource-bashlib/ci/tasks/test-opensuse.yml
-    - task: task-test
+    - task: task-test-ubuntu
       file: resource-bashlib/ci/tasks/test-ubuntu.yml
+  on_success:
+    put: slack-alert
+    params:
+      username: {{message-username}}
+      icon_emoji: {{message-success-emoji}}
+      text: {{message-success-text}}
+  on_failure:
+    put: slack-alert
+    params:
+      username: {{message-username}}
+      icon_emoji: {{message-fail-emoji}}
+      text: {{message-fail-text}}
+- name: release
+  public: true
+  plan:
+  - get: resource-bashlib
+    trigger: true
+  - aggregate:
+    - task: task-release-github
+      file: resource-bashlib/ci/tasks/release-github.yml
+  on_success:
+    put: slack-alert
+    params:
+      username: {{message-username}}
+      icon_emoji: {{message-success-emoji}}
+      text: {{message-success-text}}
+  on_failure:
+    put: slack-alert
+    params:
+      username: {{message-username}}
+      icon_emoji: {{message-fail-emoji}}
+      text: {{message-fail-text}}
