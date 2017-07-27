@@ -1,0 +1,20 @@
+---
+resources:
+- name: resource-bashlib
+  type: git
+  source:
+    uri: https://github.com/vergissberlin/bashlib.git
+    branch: master
+    disable_ci_skip: true
+
+jobs:
+- name: test
+  public: true
+  max_in_flight: 1
+  plan:
+  - get: resource-bashlib
+    trigger: true
+  - aggregate:
+    - task: task-test
+      file: resource-bashlib/task.yml
+      params: { dirk: "dirk"}
