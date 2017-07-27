@@ -10,7 +10,7 @@ outputs:
 
 run:
   path: sh
-  args: ['./resource-bashlib/ci.sh']
+  args: ['./resource-bashlib/ci/scripts/run.sh']
 
 params:
   deployment_name:
