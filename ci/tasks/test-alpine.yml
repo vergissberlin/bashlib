@@ -2,19 +2,14 @@
 platform: linux
 image_resource:
   type: docker-image
-  source: {{DISTRIBUTION}}
+  source: {repository: vergissberlin/alpine-development}
 
 inputs:
 - name: resource-bashlib
+
 outputs:
 - name: test-result
 
 run:
   path: sh
   args: ['./resource-bashlib/ci/scripts/run.sh']
-
-params:
-  deployment_name:
-  docker_image_source: embedded
-  docker_image_image: "vergissberlin/alpine-development"
-  docker_image_tag: "latest"

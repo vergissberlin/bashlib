@@ -8,18 +8,29 @@ resources:
     disable_ci_skip: true
 
 jobs:
-- name: test
+- name: test-alpine
   public: true
-  max_in_flight: 1
   plan:
   - get: resource-bashlib
     trigger: true
   - aggregate:
     - task: task-test
-      file: resource-bashlib/ci/tasks/test.yml
-      params:
-        deployment_name: test-alpine
-        docker_image_image: "vergissberlin/alpine-development"
-        docker_image_tag: "latest"
-        docker_image_source: upstream
-        DISTRIBUTION: {repository: vergissberlin/alpine-development}
+      file: resource-bashlib/ci/tasks/test-alpine.yml
+- name: test-debian
+  public: true
+  plan:
+  - get: resource-bashlib
+    trigger: true
+    passed: [test-alpine]
+  - aggregate:
+    - task: task-test
+      file: resource-bashlib/ci/tasks/test-debian.yml
+- name: test-centos
+  public: true
+  plan:
+  - get: resource-bashlib
+    trigger: true
+    passed: [test-debian]
+  - aggregate:
+    - task: task-test
+      file: resource-bashlib/ci/tasks/test-centos.yml
