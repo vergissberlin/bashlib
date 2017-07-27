@@ -16,10 +16,10 @@ jobs:
     trigger: true
   - aggregate:
     - task: task-test
-      file: resource-bashlib/ci/tasks/task.yml
+      file: resource-bashlib/ci/tasks/test.yml
       params:
         deployment_name: test-alpine
         docker_image_image: "vergissberlin/alpine-development"
         docker_image_tag: "latest"
         docker_image_source: upstream
-        DISTRIBUTION: {repository: vergissberlin/ubuntu-development}
+        DISTRIBUTION: {repository: vergissberlin/alpine-development}
