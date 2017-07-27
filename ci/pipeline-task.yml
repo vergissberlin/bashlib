@@ -16,5 +16,5 @@ jobs:
     trigger: true
   - aggregate:
     - task: task-test
-      file: resource-bashlib/task.yml
+      file: resource-bashlib/ci/tasks/task.yml
       params: { dirk: "dirk"}
