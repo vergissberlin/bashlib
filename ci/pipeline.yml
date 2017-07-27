@@ -35,7 +35,11 @@ jobs:
       - name: resource-bashlib
       run:
         path: sh
-        args: ['./resource-bashlib/ci.sh']
+        args: ['./resource-bashlib/ci/scripts/run.sh']
+  on_failure:
+    put: slack-alert
+    params:
+      text: "bashlib: Test failed"
 - name: test-centos
   public: true
   max_in_flight: 1
@@ -53,7 +57,11 @@ jobs:
       - name: resource-bashlib
       run:
         path: sh
-        args: ['./resource-bashlib/ci.sh']
+        args: ['./resource-bashlib/ci/scripts/run.sh']
+  on_failure:
+    put: slack-alert
+    params:
+      text: "bashlib: Test failed"
 - name: test-debian
   public: true
   max_in_flight: 1
@@ -71,7 +79,11 @@ jobs:
       - name: resource-bashlib
       run:
         path: sh
-        args: ['./resource-bashlib/ci.sh']
+        args: ['./resource-bashlib/ci/scripts/run.sh']
+  on_failure:
+    put: slack-alert
+    params:
+      text: "bashlib: Test failed"
 - name: test-fedora
   public: true
   max_in_flight: 1
@@ -89,7 +101,11 @@ jobs:
       - name: resource-bashlib
       run:
         path: sh
-        args: ['./resource-bashlib/ci.sh']
+        args: ['./resource-bashlib/ci/scripts/run.sh']
+  on_failure:
+    put: slack-alert
+    params:
+      text: "bashlib: Test failed"
 - name: test-opensuse
   public: true
   max_in_flight: 1
@@ -107,7 +123,11 @@ jobs:
       - name: resource-bashlib
       run:
         path: sh
-        args: ['./resource-bashlib/ci.sh']
+        args: ['./resource-bashlib/ci/scripts/run.sh']
+  on_failure:
+    put: slack-alert
+    params:
+      text: "bashlib: Test failed on fedora"
 - name: test-ubuntu
   public: true
   max_in_flight: 1
@@ -125,7 +145,7 @@ jobs:
       - name: resource-bashlib
       run:
         path: sh
-        args: ['./resource-bashlib/ci.sh']
+        args: ['./resource-bashlib/ci/scripts/run.sh']
   on_success:
     put: slack-alert
     params:
