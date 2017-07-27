@@ -2,8 +2,7 @@
 platform: linux
 image_resource:
   type: docker-image
-  source:
-    repository: "vergissberlin/alpine-development"
+  source: {repository: vergissberlin/alpine-development }
   tag: latest
 
 inputs:
