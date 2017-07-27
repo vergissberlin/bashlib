@@ -14,7 +14,7 @@ DIRECTORY_TEST_HELPER="${DIRECTORY_TEST}/test_helper"
 BATS_EXECUTEABLE="${DIRECTORY_TEST_HELPER}/bats/libexec/bats"
 
 # Install dependencies
-echo "Install dependencies"
+echo "::: Install dependencies"
 if [ ! -e $BATS_EXECUTEABLE ]; then
 	mkdir -p ${DIRECTORY_TEST_HELPER}/bats
 	git clone --depth 1 https://github.com/sstephenson/bats ./test/test_helper/bats-source
@@ -33,5 +33,5 @@ fi
 echo
 
 # Run all tests with bats
-echo "Execute tests with bats"
+echo "::: Execute tests with bats"
 exec ${BATS_EXECUTEABLE} ${CI:+--tap} ${DIRECTORY_TEST}/lib
