@@ -2,7 +2,8 @@
 platform: linux
 image_resource:
   type: docker-image
-  source: vergissberlin/alpine-development
+  source:
+    repository: "vergissberlin/alpine-development"
   tag: latest
 
 inputs:
