@@ -20,11 +20,12 @@ resource_types:
 jobs:
 - name: test-alpine
   public: true
-  serial: true
+  max_in_flight: 1
   plan:
   - get: resource-bashlib
     trigger: true
   - task: run-test
+    file:
     config:
       platform: linux
       image_resource:
@@ -37,10 +38,11 @@ jobs:
         args: ['./resource-bashlib/ci.sh']
 - name: test-centos
   public: true
-  serial: true
+  max_in_flight: 1
   plan:
   - get: resource-bashlib
     trigger: true
+    passed: [test-alpine]
   - task: run-test
     config:
       platform: linux
@@ -52,20 +54,13 @@ jobs:
       run:
         path: sh
         args: ['./resource-bashlib/ci.sh']
-  on_success:
-    put: slack-alert
-    params:
-      text: "bashlib: Test successfully"
-  on_failure:
-    put: slack-alert
-    params:
-      text: "bashlib: Test failed"
 - name: test-debian
   public: true
-  serial: true
+  max_in_flight: 1
   plan:
   - get: resource-bashlib
     trigger: true
+    passed: [test-centos]
   - task: run-test
     config:
       platform: linux
@@ -79,10 +74,11 @@ jobs:
         args: ['./resource-bashlib/ci.sh']
 - name: test-fedora
   public: true
-  serial: true
+  max_in_flight: 1
   plan:
   - get: resource-bashlib
     trigger: true
+    passed: [test-debian]
   - task: run-test
     config:
       platform: linux
@@ -96,10 +92,11 @@ jobs:
         args: ['./resource-bashlib/ci.sh']
 - name: test-opensuse
   public: true
-  serial: true
+  max_in_flight: 1
   plan:
   - get: resource-bashlib
     trigger: true
+    passed: [test-fedora]
   - task: run-test
     config:
       platform: linux
@@ -113,10 +110,11 @@ jobs:
         args: ['./resource-bashlib/ci.sh']
 - name: test-ubuntu
   public: true
-  serial: true
+  max_in_flight: 1
   plan:
   - get: resource-bashlib
     trigger: true
+    passed: [test-opensuse]
   - task: run-test
     config:
       platform: linux
@@ -128,3 +126,11 @@ jobs:
       run:
         path: sh
         args: ['./resource-bashlib/ci.sh']
+  on_success:
+    put: slack-alert
+    params:
+      text: "bashlib: Test successfully"
+  on_failure:
+    put: slack-alert
+    params:
+      text: "bashlib: Test failed"
