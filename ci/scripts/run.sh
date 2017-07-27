@@ -5,6 +5,8 @@ export TERM=xterm
 
 figlet "bashlib"
 echo
+figlet -f digital $DISTRIBUTION
+echo
 figlet -f digital "Run tests"
 echo
 echo $(uname -a)
