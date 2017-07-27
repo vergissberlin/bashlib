@@ -151,12 +151,14 @@ jobs:
     params:
       channel: "#transformers"
       username: "concourse ci"
-      icon_url: https://media-api.atlassian.io/file/c34cd337-2a4b-4361-a5cd-ae5a6c97ddc1/image?mode=full-fit&client=16f85345-9f3c-42b3-b4b6-87f77705a934&token=eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiIxNmY4NTM0NS05ZjNjLTQyYjMtYjRiNi04N2Y3NzcwNWE5MzQiLCJhY2Nlc3MiOnsidXJuOmZpbGVzdG9yZTpmaWxlOmMzNGNkMzM3LTJhNGItNDM2MS1hNWNkLWFlNWE2Yzk3ZGRjMSI6WyJyZWFkIl19LCJleHAiOjE1MDExNzMwMzYsIm5iZiI6MTUwMTE2OTY3Nn0.FzhmzqBSHOcip93t_-1dk2HQMPYUSpVEIkp2OzuSC28
+      icon_emoji: ":white_check_mark:"
       text: |
-        :white_check_mark: Success!
-        Team:   $BUILD_TEAM_NAME
-        Job:    $BUILD_JOB_NAME
-        Build:  $BUILD_NAME.$BUILD_ID
+        *Success !!*
+
+        > Team:   $BUILD_TEAM_NAME
+        > Job:    $BUILD_JOB_NAME
+        > Build:  $BUILD_NAME.$BUILD_ID
+
   on_failure:
     put: slack-alert
     params:
