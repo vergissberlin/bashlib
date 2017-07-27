@@ -156,7 +156,7 @@ jobs:
         :white_check_mark: Success!
         Team:   $BUILD_TEAM_NAME
         Job:    $BUILD_JOB_NAME
-        Build:  $BUILD_NAME.$BUILD_ID'
+        Build:  $BUILD_NAME.$BUILD_ID
   on_failure:
     put: slack-alert
     params:
