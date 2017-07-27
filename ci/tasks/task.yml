@@ -6,7 +6,7 @@ image_resource:
 inputs:
 - name: resource-bashlib
 outputs:
-- name: manifest
+- name: test-result
 
 run:
   path: sh

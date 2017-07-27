@@ -6,10 +6,14 @@ export TERM=xterm
 figlet "bashlib"
 figlet -f digital "Run tests"
 
-echo "\n\nRun tests on: ${DISTRIBUTION}"
-echo "$(uname -a)\n"
-cat /etc/lsb-release
-echo "\n"
+echo
+echo
+echo "$(uname -a)"
+echo "Try to run tests on: ${DISTRIBUTION}"
+echo
+[ -e /etc/lsb-release ] && cat /etc/lsb-release
+echo
+
 
 cd ./resource-bashlib/
 sh ./test/suite.sh
