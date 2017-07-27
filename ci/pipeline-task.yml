@@ -8,7 +8,7 @@ resources:
     disable_ci_skip: true
 
 jobs:
-- name: test-alpine
+- name: test
   public: true
   plan:
   - get: resource-bashlib
@@ -16,21 +16,13 @@ jobs:
   - aggregate:
     - task: task-test
       file: resource-bashlib/ci/tasks/test-alpine.yml
-- name: test-debian
-  public: true
-  plan:
-  - get: resource-bashlib
-    trigger: true
-    passed: [test-alpine]
-  - aggregate:
-    - task: task-test
-      file: resource-bashlib/ci/tasks/test-debian.yml
-- name: test-centos
-  public: true
-  plan:
-  - get: resource-bashlib
-    trigger: true
-    passed: [test-debian]
-  - aggregate:
     - task: task-test
       file: resource-bashlib/ci/tasks/test-centos.yml
+    - task: task-test
+      file: resource-bashlib/ci/tasks/test-debian.yml
+    - task: task-test
+      file: resource-bashlib/ci/tasks/test-fedora.yml
+    - task: task-test
+      file: resource-bashlib/ci/tasks/test-opensuse.yml
+    - task: task-test
+      file: resource-bashlib/ci/tasks/test-ubuntu.yml

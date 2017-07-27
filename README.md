@@ -47,6 +47,12 @@ That library is made for you! It helps to improve bash your bash scripts.
 ````
 bash test/suite.sh
 ````
+### CI
+
+```
+fly set-pipeline -t bashlib -p bashlib -c ci/pipeline.yml -l ci/variables/message.yml -n
+```
+
 
 ### Support or Contact
 You can contact me (@vergissberlin) on GitHub. Use the issue tracker to report bugs.
