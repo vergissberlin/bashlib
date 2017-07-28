@@ -3,3 +3,5 @@
 !/test/test_helper/batslib*
 .env
 .DS_Store
+/releases/
+credentials.yml
