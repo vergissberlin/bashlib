@@ -1,171 +1,81 @@
 ---
 resources:
-- name: resource-bashlib
-  type: git
+- name:              resource-bashlib
+  type:              git
   source:
-    uri: https://github.com/vergissberlin/bashlib.git
-    branch: master
+    uri:             https://github.com/vergissberlin/bashlib.git
+    branch:          master
     disable_ci_skip: true
-- name: slack-alert
-  type: slack-notification
+- name:              slack-alert
+  type:              slack-notification
   source:
-    url: https://hooks.slack.com/services/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
+    url:             {{slack-hook-url}}
+- name:              gh-release
+  type:              github-release
+  source:
+    owner:           vergissberlin
+    repository:      bashlib
+    access_token:    64f25f6633c2052347233d3838b95744802a2596
 resource_types:
-- name: slack-notification
-  type: docker-image
+- name:              slack-notification
+  type:              docker-image
   source:
-    repository: cfcommunity/slack-notification-resource
-    tag: latest
+    repository:      cfcommunity/slack-notification-resource
+    tag:             latest
 
 jobs:
-- name: test-alpine
-  public: true
-  max_in_flight: 1
+- name:              test
+  public:            true
   plan:
-  - get: resource-bashlib
-    trigger: true
-  - task: run-test
-    file:
-    config:
-      platform: linux
-      image_resource:
-        type: docker-image
-        source: {repository: vergissberlin/alpine-development}
-      inputs:
-      - name: resource-bashlib
-      run:
-        path: sh
-        args: ['./resource-bashlib/ci/scripts/run.sh']
-  on_failure:
-    put: slack-alert
-    params:
-      username: {{message-username}}
-      icon_emoji: {{message-fail-emoji}}
-      text: {{message-fail-text}}
-- name: test-centos
-  public: true
-  max_in_flight: 1
-  plan:
-  - get: resource-bashlib
-    trigger: true
-    passed: [test-alpine]
-  - task: run-test
-    config:
-      platform: linux
-      image_resource:
-        type: docker-image
-        source: {repository: vergissberlin/centos-development}
-      inputs:
-      - name: resource-bashlib
-      run:
-        path: sh
-        args: ['./resource-bashlib/ci/scripts/run.sh']
-  on_failure:
-    put: slack-alert
-    params:
-      username: {{message-username}}
-      icon_emoji: {{message-fail-emoji}}
-      text: {{message-fail-text}}
-- name: test-debian
-  public: true
-  max_in_flight: 1
-  plan:
-  - get: resource-bashlib
-    trigger: true
-    passed: [test-centos]
-  - task: run-test
-    config:
-      platform: linux
-      image_resource:
-        type: docker-image
-        source: {repository: vergissberlin/debian-development}
-      inputs:
-      - name: resource-bashlib
-      run:
-        path: sh
-        args: ['./resource-bashlib/ci/scripts/run.sh']
-  on_failure:
-    put: slack-alert
-    params:
-      username: {{message-username}}
-      icon_emoji: {{message-fail-emoji}}
-      text: {{message-fail-text}}
-- name: test-fedora
-  public: true
-  max_in_flight: 1
-  plan:
-  - get: resource-bashlib
-    trigger: true
-    passed: [test-debian]
-  - task: run-test
-    config:
-      platform: linux
-      image_resource:
-        type: docker-image
-        source: {repository: vergissberlin/fedora-development}
-      inputs:
-      - name: resource-bashlib
-      run:
-        path: sh
-        args: ['./resource-bashlib/ci/scripts/run.sh']
-  on_failure:
-    put: slack-alert
-    params:
-      username: {{message-username}}
-      icon_emoji: {{message-fail-emoji}}
-      text: {{message-fail-text}}
-- name: test-opensuse
-  public: true
-  max_in_flight: 1
-  plan:
-  - get: resource-bashlib
-    trigger: true
-    passed: [test-fedora]
-  - task: run-test
-    config:
-      platform: linux
-      image_resource:
-        type: docker-image
-        source: {repository: vergissberlin/opensuse-development}
-      inputs:
-      - name: resource-bashlib
-      run:
-        path: sh
-        args: ['./resource-bashlib/ci/scripts/run.sh']
-  on_failure:
-    put: slack-alert
-    params:
-      username: {{message-username}}
-      icon_emoji: {{message-fail-emoji}}
-      text: {{message-fail-text}}
-- name: test-ubuntu
-  public: true
-  max_in_flight: 1
-  plan:
-  - get: resource-bashlib
-    trigger: true
-    passed: [test-opensuse]
-  - task: run-test
-    config:
-      platform: linux
-      image_resource:
-        type: docker-image
-        source: {repository: vergissberlin/ubuntu-development}
-      inputs:
-      - name: resource-bashlib
-      run:
-        path: sh
-        args: ['./resource-bashlib/ci/scripts/run.sh']
+  - get:             resource-bashlib
+    trigger:         true
+  - aggregate:
+    - task:          task-test-alpine
+      file:          resource-bashlib/ci/tasks/test-alpine.yml
+    - task:          task-test-centos
+      file:          resource-bashlib/ci/tasks/test-centos.yml
+    - task:          task-test-debian
+      file:          resource-bashlib/ci/tasks/test-debian.yml
+    - task:          task-test-fedora
+      file:          resource-bashlib/ci/tasks/test-fedora.yml
+    - task:          task-test-opensuse
+      file:          resource-bashlib/ci/tasks/test-opensuse.yml
+    - task:          task-test-ubuntu
+      file:          resource-bashlib/ci/tasks/test-ubuntu.yml
   on_success:
-    put: slack-alert
+    put:             slack-alert
     params:
-      username: {{message-username}}
-      icon_emoji: {{message-success-emoji}}
-      text: {{message-success-text}}
-
+      username:      {{message-username}}
+      icon_emoji:    {{message-success-emoji}}
+      text:          {{message-success-text}}
   on_failure:
-    put: slack-alert
+    put:             slack-alert
     params:
-      username: {{message-username}}
-      icon_emoji: {{message-fail-emoji}}
-      text: {{message-fail-text}}
+      username:      {{message-username}}
+      icon_emoji:    {{message-fail-emoji}}
+      text:          {{message-fail-text}}
+- name:              release
+  public:            true
+  plan:
+  - get:             resource-bashlib
+    trigger:         true
+    passed:          [test]
+  - put:             gh-release
+    params:
+      name:          release-result/releases/name
+      tag:           release-result/releases/tag
+  - aggregate:
+    - task:          task-release-github
+      file:          resource-bashlib/ci/tasks/release-github.yml
+  on_success:
+    put:             slack-alert
+    params:
+      username:      {{message-username}}
+      icon_emoji:    {{message-success-emoji}}
+      text:          {{message-success-text}}
+  on_failure:
+    put:             slack-alert
+    params:
+      username:      {{message-username}}
+      icon_emoji:    {{message-fail-emoji}}
+      text:          {{message-fail-text}}

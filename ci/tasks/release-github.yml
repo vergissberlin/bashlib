@@ -9,3 +9,7 @@ inputs:
 
 outputs:
 - name: release-result
+
+run:
+  path: sh
+  args: ['./resource-bashlib/ci/scripts/release-github.sh']

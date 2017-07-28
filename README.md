@@ -50,16 +50,23 @@ bash test/suite.sh
 ### CI
 
 ```
-fly set-pipeline -t bashlib -p bashlib -c ci/pipeline.yml -l ci/variables/message.yml -n
+fly set-pipeline \
+	-t bashlib \
+	-p bashlib \
+	-c ci/pipeline.yml \
+	-l ci/variables/message.yml \
+	-l ci/variables/message.yml -n
 ```
 
 
 ### Support or Contact
+
 You can contact me (@vergissberlin) on GitHub. Use the issue tracker to report bugs.
 
 
 ## Thank you
-- tlatsas for inspire to a bash spinner https://github.com/tlatsas/bash-spinner/blob/master/spinner.sh
+
+- *tlatsas* for inspire to a bash spinner https://github.com/tlatsas/bash-spinner/blob/master/spinner.sh
 
 
 ---
