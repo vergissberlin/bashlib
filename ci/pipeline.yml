@@ -6,26 +6,16 @@ resources:
     uri:             https://github.com/vergissberlin/bashlib.git
     branch:          master
     private_key:     {{github-private-key}}
-    disable_ci_skip: true
 - name:              github-release
   type:              github-release
   source:
-    access_token:    {{github-release-access-token}}
-    repository:      github-release-concourse-test
     user:            vergissberlin
-
-
-
+    repository:      bashlib
+    access_token:    {{github-release-access-token}}
 - name:              slack-alert
   type:              slack-notification
   source:
     url:             {{slack-hook-url}}
-- name:              gh-release
-  type:              github-release
-  source:
-    owner:           vergissberlin
-    repository:      bashlib
-    access_token:    64f25f6633c2052347233d3838b95744802a2596
 
 resource_types:
 - name:              slack-notification
