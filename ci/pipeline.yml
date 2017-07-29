@@ -1,82 +1,71 @@
 ---
 resources:
-- name:              resource-bashlib
-  type:              git
+- name:           resource-bashlib
+  type:           git
   source:
-    uri:             https://github.com/vergissberlin/bashlib.git
-    branch:          master
-    private_key:     {{github-private-key}}
-- name:              github-release
-  type:              github-release
+    uri:          https://github.com/vergissberlin/bashlib.git
+    branch:       master
+    private_key:  {{github-private-key}}
+- name:           github-release
+  type:           github-release
   source:
-    user:            vergissberlin
-    repository:      bashlib
-    access_token:    {{github-release-access-token}}
-- name:              slack-alert
-  type:              slack-notification
+    user:         vergissberlin
+    repository:   bashlib
+    access_token: {{github-token}}
+- name:           slack-alert
+  type:           slack-notification
   source:
-    url:             {{slack-hook-url}}
+    url:          {{slack-hook-url}}
 
 resource_types:
-- name:              slack-notification
-  type:              docker-image
+- name:           slack-notification
+  type:           docker-image
   source:
-    repository:      cfcommunity/slack-notification-resource
-    tag:             latest
+    repository:   cfcommunity/slack-notification-resource
+    tag:          latest
 
 jobs:
-- name:              test
-  public:            true
+- name:           test
+  public:         true
   plan:
-  - get:             resource-bashlib
-    trigger:         true
+  - get:          resource-bashlib
+    trigger:      true
   - aggregate:
-    - task:          task-test-alpine
-      file:          resource-bashlib/ci/tasks/test-alpine.yml
-    - task:          task-test-centos
-      file:          resource-bashlib/ci/tasks/test-centos.yml
-    - task:          task-test-debian
-      file:          resource-bashlib/ci/tasks/test-debian.yml
-    - task:          task-test-fedora
-      file:          resource-bashlib/ci/tasks/test-fedora.yml
-    - task:          task-test-opensuse
-      file:          resource-bashlib/ci/tasks/test-opensuse.yml
-    - task:          task-test-ubuntu
-      file:          resource-bashlib/ci/tasks/test-ubuntu.yml
-  on_success:
-    put:             slack-alert
-    params:
-      username:      {{message-username}}
-      icon_emoji:    {{message-success-emoji}}
-      text:          {{message-success-text}}
-  on_failure:
-    put:             slack-alert
-    params:
-      username:      {{message-username}}
-      icon_emoji:    {{message-fail-emoji}}
-      text:          {{message-fail-text}}
-- name:              release
-  public:            true
+    - task:       task-test-alpine
+      file:       resource-bashlib/ci/tasks/test-alpine.yml
+    - task:       task-test-centos
+      file:       resource-bashlib/ci/tasks/test-centos.yml
+    - task:       task-test-debian
+      file:       resource-bashlib/ci/tasks/test-debian.yml
+    - task:       task-test-fedora
+      file:       resource-bashlib/ci/tasks/test-fedora.yml
+    - task:       task-test-opensuse
+      file:       resource-bashlib/ci/tasks/test-opensuse.yml
+    - task:       task-test-ubuntu
+      file:       resource-bashlib/ci/tasks/test-ubuntu.yml
+- name:           release
+  public:         true
   plan:
-  - get:             resource-bashlib
-    trigger:         true
-    passed:          [test]
-  - put:             gh-release
+  - get:          resource-bashlib
+    trigger:      true
+    passed:       [test]
+  - put:          github-release
     params:
-      name:          release-result/releases/name
-      tag:           release-result/releases/tag
-  - aggregate:
-    - task:          task-release-github
-      file:          resource-bashlib/ci/tasks/release-github.yml
+      repository: bashlib
+      tag:        bashlib/VERSION
+      tag_prefix: v
+#  - aggregate:
+#    - task:       task-release-github
+#      file:       resource-bashlib/ci/tasks/release-github.yml
   on_success:
-    put:             slack-alert
+    put:          slack-alert
     params:
-      username:      {{message-username}}
-      icon_emoji:    {{message-success-emoji}}
-      text:          {{message-success-text}}
+      username:   {{message-username}}
+      icon_emoji: {{message-success-emoji}}
+      text:       {{message-success-text}}
   on_failure:
-    put:             slack-alert
+    put:          slack-alert
     params:
-      username:      {{message-username}}
-      icon_emoji:    {{message-fail-emoji}}
-      text:          {{message-fail-text}}
+      username:   {{message-username}}
+      icon_emoji: {{message-fail-emoji}}
+      text:       {{message-fail-text}}
