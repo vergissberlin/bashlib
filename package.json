@@ -1,0 +1,29 @@
+{
+  "name": "bashlib",
+  "version": "0.0.1",
+  "description": "You wanna create your own bash script, and don't start on ground zero? That library is made for you! It helps to improve bash your bash scripts.",
+  "main": "bashlib.sh",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "sh test/suite.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vergissberlin/bashlib.git"
+  },
+  "keywords": [
+    "bash",
+    "library",
+    "cli",
+    "console"
+  ],
+  "author": "André Lademann <vergissberlin@googlemail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vergissberlin/bashlib/issues"
+  },
+  "homepage": "https://github.com/vergissberlin/bashlib#readme"
+}
