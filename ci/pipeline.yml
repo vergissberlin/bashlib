@@ -23,7 +23,6 @@ resource_types:
   source:
     repository:         cfcommunity/slack-notification-resource
     tag:                latest
-
 - name:                 resource-version
   type:                 semver
   source:
@@ -35,12 +34,6 @@ resource_types:
     private_key:        {{github-private-key}}
 
 jobs:
-- name:                 job-versioning
-  public:               true
-  serial:               true
-  plan:
-  - get:                resource-version
-
 - name:                 tag
   plan:
   - get:                github-release
@@ -69,20 +62,20 @@ jobs:
       file:             resource-bashlib/ci/tasks/test-opensuse.yml
     - task:             task-test-ubuntu
       file:             resource-bashlib/ci/tasks/test-ubuntu.yml
-#- name:                 release
-#  public:               true
-#  plan:
-#  - get:                resource-bashlib
-#    trigger:            true
-#    passed:             [test]
-#  - put:                github-release
-#    params:
-#      repository:       bashlib
-#      tag:              bashlib/VERSION
-#      tag_prefix:       v
-#  - aggregate:
-#    - task:            task-release-github
-#      file:            resource-bashlib/ci/tasks/release-github.yml
+- name:                 release
+  public:               true
+  plan:
+  - get:                resource-bashlib
+    trigger:            true
+    passed:             [test]
+  - put:                github-release
+    params:
+      repository:       bashlib
+      tag:              bashlib/VERSION
+      tag_prefix:       v
+  - aggregate:
+    - task:            task-release-github
+      file:            resource-bashlib/ci/tasks/release-github.yml
   on_success:
     put:                slack-alert
     params:
