@@ -51,7 +51,7 @@ bash test/suite.sh
 
 ```
 fly set-pipeline \
-	-t bashlib \
+	-t box \
 	-p bashlib \
 	-c ci/pipeline.yml \
 	-l ci/variables/messages.yml \
