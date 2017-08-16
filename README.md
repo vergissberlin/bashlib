@@ -54,8 +54,8 @@ fly set-pipeline \
 	-t bashlib \
 	-p bashlib \
 	-c ci/pipeline.yml \
-	-l ci/variables/message.yml \
-	-l ci/variables/message.yml -n
+	-l ci/variables/messages.yml \
+	-l ci/variables/credentials.yml -n
 ```
 
 
