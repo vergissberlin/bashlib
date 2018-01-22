@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env b.bash
 
 ####################################################################################
 # Bashlib       : 0.0.1
@@ -12,13 +12,13 @@
 source .env
 
 # Hooks
-source ./hooks/ctrl_c.sh
+source ./hooks/ctrl_c.bash
 
 # Include libraries
-source ./lib/file.sh
-source ./lib/math.sh
-source ./lib/message.sh
-source ./lib/options.sh
-source ./lib/remote.sh
-source ./lib/spinner.sh
-source ./lib/validate.sh
+source ./lib/file.bash
+source ./lib/math.bash
+source ./lib/message.bash
+source ./lib/options.bash
+source ./lib/remote.bash
+source ./lib/spinner.bash
+source ./lib/validate.bash
