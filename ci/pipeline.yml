@@ -12,7 +12,7 @@ resources:
     user:               vergissberlin
     repository:         bashlib
     access_token:       ((github-token))
-- name:                 slack-alert
+- name:                 slack
   type:                 slack-notification
   source:
     url:                ((slack-hook-url))
@@ -77,13 +77,13 @@ jobs:
     - task:            task-release-github
       file:            resource-bashlib/ci/tasks/release-github.yml
   on_success:
-    put:                slack-alert
+    put:                slack
     params:
       username:         ((message-username))
       icon_emoji:       ((message-success-emoji))
       text:             ((message-success-text))
   on_failure:
-    put:                slack-alert
+    put:                slack
     params:
       username:         ((message-username))
       icon_emoji:       ((message-fail-emoji))
