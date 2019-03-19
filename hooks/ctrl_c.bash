@@ -12,7 +12,7 @@
 trap ctrl_c INT
 function ctrl_c() {
     spinner_stop $?
-    messageWarn "${bold_begin}${blink_begin}You have interrupt the process!${blink_end}${bold_end}\n        This could causes invalid data.\n"
+    messageWarn "${bold_begin}${blink_begin}You have interrupted this process!${blink_end}${bold_end}\n                This could cause corrupted data.   \n"
     exit 1;
 }
 
